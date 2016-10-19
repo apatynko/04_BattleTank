@@ -23,12 +23,35 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	
+	UFUNCTION(BlueprintCallable, Category = Tank)
+		void SetTankChildActor(UChildActorComponent* TankFromBP);
 
 	UFUNCTION(BlueprintCallable, Category = Tank)
 	void SetTurretChildActor(UChildActorComponent* TurretFromBP);
 
+	UFUNCTION(BlueprintCallable, Category = Tank)
+		void SetBarrelChildActor(UChildActorComponent* BarrelFromBP);
+
 private:
-	void RotateCW();
-	void RotateCCW();
-	UChildActorComponent* Turret;
+	// A TANK reference  from Blueprint
+	UChildActorComponent* Tank = nullptr;
+	// Move tank at speed, -ve values for CCW
+	void MoveTank(float Speed);
+	// Rotate tank at speed, -ve values for CCW
+	void RotateTank(float Speed);
+	
+	// A TURRET reference  from Blueprint
+	UChildActorComponent* Turret = nullptr;
+	// Rotate turret at speed, -ve values for CCW
+	void RotateTurret(float Speed);
+	
+	// A Barrel reference  from Blueprint
+	UChildActorComponent* Barrel = nullptr;
+	// Rotate Barrel at speed, -ve values for CCW
+	void ElevateBarrel(float Speed);
+	UPROPERTY(EditAnywhere)
+		float RotationSpeed = 120.f;
+	UPROPERTY(EditAnywhere)
+		float MovementSpeed = 120.f;
 };
+
